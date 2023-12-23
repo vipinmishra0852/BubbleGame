@@ -1,4 +1,4 @@
-var timer=5 ;
+var timer=60 ;
 var Hitrn=0;
 var HighestScore=0;
 function getNewHit(){
@@ -52,35 +52,50 @@ function runTimer(){
 function checkHighestScore(score) {
     let sc = localStorage.getItem('Score');
     let pbtmElement = document.querySelector("#pbtm");
+    let content = "";
 
-    if (pbtmElement) {
-        let content = "";
-
-        if (score > sc) {
-            content = `
-                <div class="Game">
-                    <h1>Congratulations!!! You have made a new highest Score 🎉🎉🎉</h1>
-                    <br>
-                    <h1>!!Game Over!!</h1>
-                    </br>
-                    <h2>Your Score : ${score}</h2>
-                    <h2>Highest Score : ${sc}</h2>
-                <button onclick="retryGame()">Retry</button></div>`;
-            localStorage.setItem('Score', JSON.stringify(score));
-        } else {
-            content = `
-                <div class="Game">
-                    <h1>!!Game Over!!</h1>
-                    </br>
-                    <h2>Your Score : ${score}</h2>
-                    <h2>Highest Score : ${sc}</h2>
-                
-                <button  onclick="retryGame()">Retry</button></div>`;
+    if (sc == null) {
+        content = `
+            <div class="Game">    
+                <h1>!!Game Over!!</h1>
+                </br>
+                <h2>Your Score : ${score}</h2>
+                <h2>Highest Score : ${score}</h2>
+                <button onclick="retryGame()">Retry</button>
+            </div>`;
+        localStorage.setItem('Score', JSON.stringify(score));
+    } 
+    else {
+        if (pbtmElement) {
+            if (score > sc) {
+                content = `
+                    <div class="Game">
+                        <h1>Congratulations!!! You have made a new highest Score 🎉🎉🎉</h1>
+                        <br>
+                        <h1>!!Game Over!!</h1>
+                        </br>
+                        <h2>Your Score : ${score}</h2>
+                        <h2>Highest Score : ${sc}</h2>
+                        <button onclick="retryGame()">Retry</button>
+                    </div>`;
+                localStorage.setItem('Score', JSON.stringify(score));
+            }
+             else {
+                content = `
+                    <div class="Game">
+                        <h1>!!Game Over!!</h1>
+                        </br>
+                        <h2>Your Score : ${score}</h2>
+                        <h2>Highest Score : ${sc}</h2>
+                        <button onclick="retryGame()">Retry</button>
+                    </div>`;
+            }
+            
         }
-
-        pbtmElement.innerHTML = content;
     }
+    pbtmElement.innerHTML = content;
 }
+
 
 function retryGame() {
     location.reload();
