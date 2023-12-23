@@ -98,8 +98,16 @@ function checkHighestScore(score) {
 
 
 function retryGame() {
-    location.reload();
+ 
+    score = 0;
+    timer = 60; 
+    document.querySelector('#timerVal').textContent = timer;
+   
+    makebubble();
+    getNewHit();
+    runTimer();
 }
+
 
 runTimer();
 makebubble();
